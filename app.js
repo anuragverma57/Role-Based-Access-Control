@@ -4,14 +4,20 @@ const mongoose = require("mongoose");
 const createHttpError = require("http-errors");
 require("dotenv").config();
 
+const indexRoute = require("./routes/index.route");
+const userRoute = require("./routes/user.route");
+const authRoute = require("./routes/auth.route");
+
 const app = express();
 app.use(morgan("dev"));
+app.set("view engine", "ejs");
+app.use(express.static("public"));
 
 const Port = process.env.PORT || 3000;
 
-app.get("/", (req, res, next) => {
-  res.send("WORKING");
-});
+app.use("/", indexRoute);
+app.use("/auth", authRoute);
+app.use("/user", userRoute);
 
 app.use((req, res, next) => {
   next(createHttpError.NotFound());
@@ -20,7 +26,7 @@ app.use((req, res, next) => {
 app.use((error, req, res, next) => {
   error.status = error.status || 500;
   res.status(error.status);
-  res.send(error);
+  res.render('error_40x',{error});
 });
 
 mongoose
