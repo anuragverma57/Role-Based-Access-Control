@@ -1,3 +1,4 @@
+const { log } = require("console");
 const User = require("../models/userModel");
 const generateToken = require("../utils/generateToken");
 const bcrypt = require("bcryptjs");
@@ -16,6 +17,7 @@ const register = async (req, res) => {
             token: generateToken(user._id, user.role),
         });
     } catch (error) {
+        console.log(error);
         res.status(400).json({ message: "User already exists" });
     }
 };
@@ -24,7 +26,8 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email });
+    if (user.banned) return res.status(401).json({ message: "Your account is banned. Please contact admin." });
     if (user && (await bcrypt.compare(password, user.password))) {
         res.status(200).json({
             message: "User Logged In successfully",

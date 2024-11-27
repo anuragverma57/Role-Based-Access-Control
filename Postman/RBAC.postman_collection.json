@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "a60b633a-ef09-4c64-93b7-8f90d84efcd6",
+		"name": "RBAC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21917804"
+	},
+	"item": [
+		{
+			"name": "Register a user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"user3\",\n  \"email\": \"user10@email.com\",\n  \"password\": \"12\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logging a user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"user1@email.com\",\n  \"password\": \"12\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDcwODIxMDk1N2EyOGY0MTU5ZTUzMiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzMyNzA4Mzg1LCJleHAiOjE3MzI3OTQ3ODV9.2BXYYeT0zyGGh8PHb_BfduesU0u1r5t1pb6cQggUoKY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/users/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDcwODIxMDk1N2EyOGY0MTU5ZTUzMiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzMyNzA4Mzg1LCJleHAiOjE3MzI3OTQ3ODV9.2BXYYeT0zyGGh8PHb_BfduesU0u1r5t1pb6cQggUoKY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"user1\",\n    \"password\":\"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/update-profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"update-profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Status Change Active/Inactive",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDcyODRjYWZmOGZmYzA5N2Q4OWRkYSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzMyNzE3MzU1LCJleHAiOjE3MzI4MDM3NTV9.uM8sOp7nxnUIJBoGseUShVliJJBMeXUooBcMjQCBYWY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"inactive\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/status-change",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"status-change"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users [Moderator, Admin]",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDZmYzUzNDYzZWI2OGZlNjM3N2FiYyIsInJvbGUiOiJtb2RlcmF0b3IiLCJpYXQiOjE3MzI3MDU3MTcsImV4cCI6MTczMjc5MjExN30.Y5ZOn_8aF1EHMjz2WvSf7nvBLQNUss_Qdc1zvh3O7Rs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch a user by Id [Moderator, Admin]",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDZmYzUzNDYzZWI2OGZlNjM3N2FiYyIsInJvbGUiOiJtb2RlcmF0b3IiLCJpYXQiOjE3MzI3MDU3MTcsImV4cCI6MTczMjc5MjExN30.Y5ZOn_8aF1EHMjz2WvSf7nvBLQNUss_Qdc1zvh3O7Rs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/users/6746fc3b463eb68fe6377ab8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"6746fc3b463eb68fe6377ab8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Stats [Moderator, Admin]",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDcyOGIxYWZmOGZmYzA5N2Q4OWRlZCIsInJvbGUiOiJtb2RlcmF0b3IiLCJpYXQiOjE3MzI3MTc1NzcsImV4cCI6MTczMjgwMzk3N30.z1SDG4heM--G_MfxckFADV2qJolkxfO5pV5WT3Ec0P8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/users/stats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Role [Admin]",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDZmYzNiNDYzZWI2OGZlNjM3N2FiOCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczMjcwNTkzMiwiZXhwIjoxNzMyNzkyMzMyfQ.bFa4Igl2hWzB6visG0p4JFbgh00XyOaGimnxj1YbAYc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":\"6746fc22463eb68fe6377ab6\",\n    \"role\":\"moderator\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/change-role",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"change-role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ban a user [Admin]",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDcyOGEyYWZmOGZmYzA5N2Q4OWRlOSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczMjcxODU0OCwiZXhwIjoxNzMyODA0OTQ4fQ.g7jJgHjkSpP0i2OqZIa0_RYlzUsMA1FyYxAbq3SgknI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDcyODRjYWZmOGZmYzA5N2Q4OWRkYSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzMyNzE3MzU1LCJleHAiOjE3MzI4MDM3NTV9.uM8sOp7nxnUIJBoGseUShVliJJBMeXUooBcMjQCBYWY"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/67472896aff8ffc097d89de5/ban",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"67472896aff8ffc097d89de5",
+						"ban"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unban a user [Admin]",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDcyOGEyYWZmOGZmYzA5N2Q4OWRlOSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczMjcxODU0OCwiZXhwIjoxNzMyODA0OTQ4fQ.g7jJgHjkSpP0i2OqZIa0_RYlzUsMA1FyYxAbq3SgknI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDcyOGEyYWZmOGZmYzA5N2Q4OWRlOSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczMjcxODU0OCwiZXhwIjoxNzMyODA0OTQ4fQ.g7jJgHjkSpP0i2OqZIa0_RYlzUsMA1FyYxAbq3SgknI"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/users/67472896aff8ffc097d89de5/unban",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"67472896aff8ffc097d89de5",
+						"unban"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
