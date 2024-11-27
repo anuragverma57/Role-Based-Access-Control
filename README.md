@@ -70,6 +70,7 @@ This project implements a secure **Authentication**, **Authorization**, and **Ro
     ```
 
 - **Update User Name or Password**
+
   - **Endpoint:** `PATCH /api/users/update-profile`
   - **Description:** Allows a user to update their `name` or `password`. Users cannot modify their role through this endpoint.
   - **Protected:** Yes (Accessible to all authenticated users).
@@ -92,9 +93,29 @@ This project implements a secure **Authentication**, **Authorization**, and **Ro
     }
     ```
 
+- **Change Status as Active/Inactive**
+
+  - **Endpoint:** `PATCH /api/users/status-change`
+  - **Description:** Allows a user to change their `status`.
+  - **Protected:** Yes (Accessible to all authenticated users).
+  - **Request Body:**
+
+    ```json
+    {
+      "status": "inactive"
+    }
+    ```
+
+  - **Response:**
+    ```json
+    {
+      "message": "User status updated to inactive"
+    }
+    ```
+
 ---
 
-### Admin-Specific Features
+### Moderator-Specific Features
 
 - **View All Users**
 
@@ -134,7 +155,26 @@ This project implements a secure **Authentication**, **Authorization**, and **Ro
     }
     ```
 
+- **Get User Stats**
+
+  - **Endpoint:** `GET /api/users/stats`
+  - **Description:** Retrieves stats of all the users present in the db.
+  - **Protected:** Yes (Accessible to Admin and Moderator).
+  - **Response:**
+    ```json
+    {
+      "totalUsers": 9,
+      "activeUsers": 8,
+      "inactiveUsers": 1,
+      "bannedUsers": 1,
+      "UnbannedUsers": 8
+    }
+    ```
+
+### Admin-Specific Features
+
 - **Change User Role**
+
   - **Endpoint:** `PATCH /api/users/change-role`
   - **Description:** Allows an admin to update a user's role. Admins cannot modify other admins' roles.
   - **Protected:** Yes (Accessible to Admin only).
@@ -149,6 +189,30 @@ This project implements a secure **Authentication**, **Authorization**, and **Ro
     ```json
     {
       "message": "Role updated successfully"
+    }
+    ```
+
+- **Ban a User**
+
+  - **Endpoint:** `PATCH /api/users/:id/ban`
+  - **Description:** Allows an admin to ban a user. Admins cannot ban other admins.
+  - **Protected:** Yes (Accessible to Admin only).
+  - **Response:**
+    ```json
+    {
+      "message": "User banned successfully"
+    }
+    ```
+
+- **UnBan a User**
+
+  - **Endpoint:** `PATCH /api/users/:id/unban`
+  - **Description:** Allows an admin to unban a banned user.
+  - **Protected:** Yes (Accessible to Admin only).
+  - **Response:**
+    ```json
+    {
+      "message": "User unbanned successfully"
     }
     ```
 
@@ -194,12 +258,16 @@ Ensure you have the following installed:
 
 ## API Overview
 
-| **Method** | **Endpoint**                | **Protected** | **Roles Allowed** | **Description**          |
-| ---------- | --------------------------- | ------------- | ----------------- | ------------------------ |
-| **POST**   | `/api/auth/register`        | No            | -                 | Register a new user      |
-| **POST**   | `/api/auth/login`           | No            | -                 | Login and obtain a token |
-| **GET**    | `/api/users/profile`        | Yes           | All               | Fetch user profile       |
-| **PATCH**  | `/api/users/update-profile` | Yes           | All               | Update name or password  |
-| **GET**    | `/api/users`                | Yes           | Admin, Moderator  | Fetch all users          |
-| **GET**    | `/api/users/:id`            | Yes           | Admin, Moderator  | Fetch a user by ID       |
-| **PATCH**  | `/api/users/change-role`    | Yes           | Admin             | Update a user's role     |
+| **Method** | **Endpoint**                | **Protected** | **Roles Allowed** | **Description**               |
+| ---------- | --------------------------- | ------------- | ----------------- | ----------------------------- |
+| **POST**   | `/api/auth/register`        | No            | -                 | Register a new user           |
+| **POST**   | `/api/auth/login`           | No            | -                 | Login and obtain a token      |
+| **GET**    | `/api/users/profile`        | Yes           | All               | Fetch user profile            |
+| **PATCH**  | `/api/users/update-profile` | Yes           | All               | Update name or password       |
+| **PATCH**  | `/api/users/change-status`  | Yes           | All               | change status Active/InActive |
+| **GET**    | `/api/users`                | Yes           | Admin, Moderator  | Fetch all users               |
+| **GET**    | `/api/users/:id`            | Yes           | Admin, Moderator  | Fetch a user by ID            |
+| **GET**    | `/api/users/stats`          | Yes           | Admin, Moderator  | Get Stats of all users in DB  |
+| **PATCH**  | `/api/users/change-role`    | Yes           | Admin             | Update a user's role          |
+| **PATCH**  | `/api/users/:id/ban`        | Yes           | Admin             | Ban a user                    |
+| **PATCH**  | `/api/users/:id/unban`      | Yes           | Admin             | Unban a banned user           |
